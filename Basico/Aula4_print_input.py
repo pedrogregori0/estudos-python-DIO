@@ -1,3 +1,4 @@
+#Aula 4
 #input pega a resposta do usuario atraves do console, por padrão sempre vai vir em "string"
 nome = input("Informe seu nome: ")
 idade = input("Informe sua idade: ")

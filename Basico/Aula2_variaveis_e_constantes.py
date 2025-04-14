@@ -1,6 +1,9 @@
-nome = "Pedro"
+#Aula 2
+#Variaveis e Constantes
 
-idade = 23
+nome = "Pedro" #String
+
+idade = 23 #Inteiro
 
 nome, idade = "Yuri Alberto", 22 #sobreposição da variavel padrão (sobrepos o valor definido anteriormente).
 

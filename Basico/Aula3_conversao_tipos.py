@@ -1,3 +1,6 @@
+#Aula 3
+#Conversões
+
 #Int
 print(int(2.0)) #Declarando como inteiro, ele printa e reconhece como inteiro 
 
