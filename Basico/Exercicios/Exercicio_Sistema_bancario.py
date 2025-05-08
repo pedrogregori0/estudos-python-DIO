@@ -8,19 +8,9 @@
 #Saque - Deve ter o limite de 3 saques diários, cada saque com o limite de R$500,00, se não tiver saldo exibir mensagem na tela, todos os Saques tem que ser armazenados em uma variável. 
 #Extrato - Deve listrar todos os depósitos e saques realizados, junto do saldo atual.
 
-
-
-menu = """ 
-
-[d] Depositar
-[s] Sacar
-[e] Extrato
-[q] Sair
-
-""" # Deixar a mensagem com varios espaços é vantajoso pra mostrar no terminal sem inserir quebra de linha (\n) 
-
 saldo = 0
 limite_deposito = 500
+limite_saque = 500
 
 valor_saque = 0
 valor_deposito = 0
@@ -35,8 +25,16 @@ extratos_depositos = []
 valor_total_saques = 0 
 valor_total_depositos = 0
 
-#fazer uma def (funcao) de depositar e de sacar
-#fazer uma tambem para extrato
+menu = """ 
+Banco Digital "Fierce Bank"
+
+[d] Depositar
+[s] Sacar
+[e] Extrato
+[q] Sair
+
+""" # Deixar a mensagem com varios espaços é vantajoso pra mostrar no terminal sem inserir quebra de linha (\n) 
+
 
 mensagem_saldo_insuficiente = (f"o valor de saque é maior que seu saldo: R${saldo}")
 
@@ -48,15 +46,16 @@ def depositar(valor_deposito):
         print("Digite um valor positivo para depositar")
         return
 
-    if valor_deposito <= limite_deposito: 
+    if valor_deposito > 0: 
         
         saldo += valor_deposito
         valor_total_depositos += valor_deposito
-        extratos_depositos.append(str(valor_deposito))
+        extratos_depositos.append(str(f"R${valor_deposito}"))
         print(f"Depósito efetuado com sucesso, saldo atual: R${saldo}")
         # inserir o deposito na lista de extrato
     else:
-        print("Deposite um valor abaixo do limite de 500")
+        print("Operação invalida tente novamente")
+        return
 
 def sacar(valor_saque): 
     global saldo
@@ -67,6 +66,9 @@ def sacar(valor_saque):
         print("Saldo insuficiente para saque!")
         return
     
+    elif valor_saque > limite_saque:
+        print("O valor máximo permitido por saque é R$500,00")
+    
     elif numero_de_saques == LIMITE_SAQUES_DIARIO:
         print("Limite de saques diário atingido, volte amanhã")
         return
@@ -75,7 +77,7 @@ def sacar(valor_saque):
             numero_de_saques += 1
             valor_total_saques += valor_saque
             saldo -= valor_saque
-            extratos_saques.append(str(valor_saque))
+            extratos_saques.append(str(f"R${valor_saque}"))
             print(numero_de_saques)
             print(f"Saque Efetuado com sucesso, saldo restante: R${saldo}")
     else:
@@ -87,8 +89,8 @@ while True:
     opcao = input(menu)
 
     if opcao == "d":
-        print("Depósito") #inserir funcao aqui, pra ler o input
-        valor_deposito  = float(input("R$"))
+        print("Depósito")
+        valor_deposito = float(input("R$"))
         depositar(valor_deposito)       
         
 
@@ -99,10 +101,18 @@ while True:
         
     
     elif opcao == "e":
-        print("Extrato")
-        print(extratos_depositos)
-        print(extratos_saques)
-        print(f"R${valor_total_depositos}")          
+        print(f"""
+----------------- Extrato bancário -----------------
+Depósitos:{extratos_depositos}.
+valor total de depósitos R$:{valor_total_depositos}.
+
+Saques:{extratos_saques}
+Valor total de saques: R$:{valor_total_saques}
+
+Saldo atual: R$:{saldo}
+----------------------------------------------------
+""")
+     
 
     elif opcao == "q":
         break
